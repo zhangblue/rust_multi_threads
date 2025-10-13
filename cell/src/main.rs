@@ -146,3 +146,5 @@ fn rwlock_example() {
 
     println!("Counter: {}", counter.read().unwrap());
 }
+
+
