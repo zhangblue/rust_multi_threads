@@ -7,3 +7,5 @@
 - [Atomics 原子操作](./atomic)
 - [OnceCell & OnceLock](onceCell_onceLock)
 - [LazyCell & LazyLock](./lazyCell_lazyLock)
+- [Thread Parking (线程挂起)](./thread_parking)
+- [Conditional Variable (条件变量)](./conditional_variable)
