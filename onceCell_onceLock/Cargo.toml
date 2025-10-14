@@ -1,5 +1,5 @@
 [package]
-name = "oncecell_oncelock"
+name = "onceCell_onceLock"
 version = "0.1.0"
 edition = "2024"
 

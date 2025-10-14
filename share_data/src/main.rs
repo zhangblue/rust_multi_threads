@@ -2,7 +2,7 @@ use std::sync::Arc;
 use std::thread;
 
 fn main() {
-    // share_data_box();
+    share_data_box();
     share_data_arc();
 }
 

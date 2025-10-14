@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "oncecell_oncelock"
+name = "onceCell_onceLock"
 version = "0.1.0"

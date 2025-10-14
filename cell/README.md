@@ -85,38 +85,45 @@
 - 解锁状态
     - 锁定(locked) -> (执行Unlock) ->未锁定(unlocked)
 - 锁中毒状态(Lock Poisoning)
-  - 当某个线程在持有`Mutex`锁时发生了`panic`, 这个互斥锁就会被视为已中毒
-  - 一旦Mutex中毒
-    - 默认情况下，其它线程将无法访问其所保护的数据。因为这些数据很可能已被污染
-  - 调用`lock`和`try_lock`方法会返回一个`Result`,用于指示该互斥锁是否已中毒
-  - 中毒的`Mutex`并不会阻止对底层数据的所有访问
-    - `PoisonError`类型提供了一个`into_inner`方法，可以返回原本在成功加锁时会返回的守卫 、
-    - 即使互斥锁已中毒，仍然可以访问到锁保护的数据
+    - 当某个线程在持有`Mutex`锁时发生了`panic`, 这个互斥锁就会被视为已中毒
+    - 一旦Mutex中毒
+        - 默认情况下，其它线程将无法访问其所保护的数据。因为这些数据很可能已被污染
+    - 调用`lock`和`try_lock`方法会返回一个`Result`,用于指示该互斥锁是否已中毒
+    - 中毒的`Mutex`并不会阻止对底层数据的所有访问
+        - `PoisonError`类型提供了一个`into_inner`方法，可以返回原本在成功加锁时会返回的守卫 、
+        - 即使互斥锁已中毒，仍然可以访问到锁保护的数据
+
 ## RwLock
+
 读写锁
+
 - `RwLock`允许在统一时刻可以有**多个读取者**或者最多**一个写入者**
 - 适用于经常被多线程读取，偶尔更新的场景。
 
 三种状态
+
 - 未锁定
 - 由独占的写入者锁定
 - 由任意数量的读取者锁定
 
 常用方法
+
 - `std::sync:RwLock<T>`
 - 锁定的方法
-  - `read()` --> `RwLockReadGuard` (实现了`Deref` trait)
-  - `write()` --> `RwLockWriteGuard` (实现了`Deref` & `DefefMut` trait)
+    - `read()` --> `RwLockReadGuard` (实现了`Deref` trait)
+    - `write()` --> `RwLockWriteGuard` (实现了`Deref` & `DefefMut` trait)
 - `T`: 必须实现了 `Send` 和 `Sync` 两个trait
-  - `Send` trait: 可以允许跨线程传输
-  - `Sync` trait: 可以在多个线程之间安全共享引用
+    - `Send` trait: 可以允许跨线程传输
+    - `Sync` trait: 可以在多个线程之间安全共享引用
 
 实现原理
+
 - `std` 的 `RwLock`：具体实现依赖于操作系统
-  - 大多数实现：
-    - 如果有写入者在等待，那么就先阻塞新的读取者(即使当前是读取锁定的状态)
+    - 大多数实现：
+        - 如果有写入者在等待，那么就先阻塞新的读取者(即使当前是读取锁定的状态)
 
 中毒状态
+
 - 读写锁(`RwLock`)在发生panic时也可能进入中毒状态
 - 但只有当`painc`发生在独占模式(写入模式)下时，读写锁才会被中毒。
 - 如果`painc`发生在任意一个读取者中，那么该锁不会被中毒

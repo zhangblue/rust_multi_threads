@@ -5,4 +5,5 @@
 - [线程间共享数据 (share_data)](./share_data)
 - [Mutex & RwLock](./cell)
 - [Atomics 原子操作](./atomic)
-- [OnceCell & OnceLock](./oncecell_oncelock)
+- [OnceCell & OnceLock](onceCell_onceLock)
+- [LazyCell & LazyLock](./lazyCell_lazyLock)
