@@ -10,3 +10,4 @@
 - [Thread Parking (线程挂起)](./thread_parking)
 - [Conditional Variable (条件变量)](./conditional_variable)
 - [消息传递 - MPSC](./mpsc)
+- [Rayon (用于Rust的数据并行库)](./rayon_iters)
